@@ -7,13 +7,13 @@ SmartDisplay CANbus Arduino Examples
 
 This Examples supports the following:
 
-This examples has been tested on the Mega 2560. 
+This example works Smart Display Modules 3.5" (CANbus Series) and has been tested on the Mega 2560.
 
-This examples will work with all Smart Display Modules (CANbus Series). This is therefore all Smart Display 3.5", 3.9", 4.3", 5", 7", 10.1".
+This is therefore all Smart Display 3.5", 3.9", 4.3", 5", 7", 10.1".
 
-The demo code included with ***[CanFestival](https://canfestival.org/)*** library was made for the Smart Display CANbus 3.5", however is easily be adapted to 
+The demo code included with ***[CanFestival](https://canfestival.org/)*** library was made for the Smart Display CANbus, 
 
-other size displays.
+however is easily be adapted to other size displays.
 
 ## Installation
 
