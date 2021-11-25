@@ -87,7 +87,7 @@ bool doConfig = 0;
  */
 void initTimer(void)
 {
-  /* 初始化计时器为0 */
+  /* initial time count 0 */
   TimerCounter_CAN = 0;
   TimerAlarm_CAN = 0;
   last_time_set = TIMEVAL_MAX;
@@ -143,6 +143,13 @@ static void CheckSDO(CO_Data* d, UNS8 nodeId)
   ConfigCmdFun();
 }
 
+/**
+ * @brief  upddate the value from the local object dictionary
+ * @param  OD Pointer to a CAN object data structure
+ * @param  unsused_indextable
+ * @param  unsused_bSubindex
+ * @retval 
+ */
 UNS32 ObjectFuncallback ( CO_Data* d, const indextable *unsused_indextable, UNS8 unsused_bSubindex )
 {
   Serial.println(F("ObjectFuncallback get value"));
@@ -176,6 +183,11 @@ bool tickHook(void *) {
   return true;
 }
 
+/**
+ * @brief  push value of obj id 0x01 from analog pin A0
+ * @param  void *
+ * @retval Return true if the execute function is required for the next cycle.
+ */
 bool scanSensor(void *)
 {
   uint16_t data;
@@ -210,6 +222,12 @@ bool scanSensor(void *)
   return true;
 }
 
+/**
+ * @brief  update value of object (widget) to destination node via CANopen API 
+ *         if SDO thread is empty
+ * @param  None
+ * @retval Return true.
+ */
 bool ConfigCmdFun(void)
 {  
   ConfigCmd cmd;
