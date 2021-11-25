@@ -15,13 +15,14 @@ The demo code included with ***[CanFestival](https://canfestival.org/)*** librar
 
 however is easily be adapted to other size displays.
 
+https://user-images.githubusercontent.com/7386787/143402804-648cdb11-c7e7-4275-b308-8f758b9d63c6.mp4
+
+
 ## Installation
 
 The repository should be placed in the C:\Users\(User name)\My Documents\Arduino\Libraries\ folder, or equivalent. (restart the IDE if already open)
 
 For more information on the installation, please refer to [Installing Additional Arduino Libraries] (http://arduino.cc/en/Guide/Libraries)
-
-https://user-images.githubusercontent.com/7386787/143402804-648cdb11-c7e7-4275-b308-8f758b9d63c6.mp4
 
 ## General Examples Discussion
 
