@@ -1,13 +1,15 @@
 SmartDisplay CANbus Arduino Examples
 ==============================================================
 
-
-
 ## Information
 
-This Examples supports the following:
+This Examples provide the following help:
 
-This example works Smart Display Modules 3.5" (CANbus Series) and has been tested on the Mega 2560.
+* Description example of control gauge
+* ***To be added***
+
+
+This example is demonstration Arduino mega 2560 through [Canbus shield](https://www.seeedstudio.com/CAN-BUS-Shield-V2.html) control [Smart Display Modules CANbus 3.5"](https://www.winstar.com.tw/products/smart-display/can-display/wl0f00035000xgaaasc00.html).
 
 This is therefore all Smart Display 3.5", 3.9", 4.3", 5", 7", 10.1".
 
@@ -20,7 +22,10 @@ https://user-images.githubusercontent.com/7386787/143402804-648cdb11-c7e7-4275-b
 
 ## Installation
 
-The repository should be placed in the C:\Users\(User name)\My Documents\Arduino\Libraries\ folder, or equivalent. (restart the IDE if already open)
+The repository should be placed in the C:\Users\(User name)\My Documents\Arduino\Libraries\, or equivalent. (restart the IDE if already open)
+
+![image](https://user-images.githubusercontent.com/7386787/143409293-ceda724e-e889-4116-b6ae-c6e412eae84d.png)
+
 
 For more information on the installation, please refer to [Installing Additional Arduino Libraries] (http://arduino.cc/en/Guide/Libraries)
 
