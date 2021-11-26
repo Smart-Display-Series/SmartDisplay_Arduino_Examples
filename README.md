@@ -11,7 +11,7 @@ This Examples provide the following help:
 
 This example is demonstration Arduino mega 2560 through [Canbus shield](https://www.seeedstudio.com/CAN-BUS-Shield-V2.html) control [Smart Display Modules CANbus 3.5"](https://www.winstar.com.tw/products/smart-display/can-display/wl0f00035000xgaaasc00.html).
 
-This is therefore all Smart Display 3.5", 3.9", 4.3", 5", 7", 10.1".
+This Examples will work with all [Smart Display CANbus Modules](https://www.winstar.com.tw/products/smart-display/can-display.html).
 
 The demo code included with ***[CanFestival](https://canfestival.org/)*** library was made for the Smart Display CANbus, 
 
