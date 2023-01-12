@@ -156,9 +156,53 @@ UNS32 ObjectFuncallback ( CO_Data* d, const indextable *unsused_indextable, UNS8
 
   uint32_t expectSize;
   uint8_t dataType;
+  
+  uint16_t obj01_getValue;
+  uint16_t obj02_getValue;
+  uint16_t obj03_getValue;
+  uint16_t obj04_getValue;
+  uint16_t obj05_getValue;
+  uint16_t obj06_getValue;
+  uint16_t obj07_getValue;
+  uint16_t obj08_getValue;
+  uint16_t obj09_getValue;
+  uint16_t obj10_getValue;
 
   readLocalDict( &SmartDisplay_Data, Idx01_id, obj_getValue, &gaugeValue, &expectSize, &dataType, 0 );
-
+  // -------------------------------------------------------------------------------------------------------
+  
+  readLocalDict( &SmartDisplay_Data, Idx01_id, obj_getValue, &obj01_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx02_id, obj_getValue, &obj02_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx03_id, obj_getValue, &obj03_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx04_id, obj_getValue, &obj04_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx05_id, obj_getValue, &obj05_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx06_id, obj_getValue, &obj06_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx07_id, obj_getValue, &obj07_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx08_id, obj_getValue, &obj08_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx09_id, obj_getValue, &obj09_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx10_id, obj_getValue, &obj10_getValue, &expectSize, &dataType, 0 );
+  
+  sprintf( prbuf, "obj01_getValue %03d", obj01_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj02_getValue %03d", obj02_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj03_getValue %03d", obj03_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj04_getValue %03d", obj04_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj05_getValue %03d", obj05_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj06_getValue %03d", obj06_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj07_getValue %03d", obj07_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj08_getValue %03d", obj08_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj09_getValue %03d", obj09_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj10_getValue %03d", obj10_getValue );
+  Serial.println(prbuf);
+  
   return 0;
 }
 
