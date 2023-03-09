@@ -7,6 +7,9 @@
 #include <mcp2515_can.h>
 #include "ModelSetting.h"
 
+/*Need to make a layout and do memory mapping with the help of the GUI builder app.*/
+/*A .wgb file has been added to the Arduino library to verify the icon index ID in the Arduino project. so that the correct icon index could be used in coding.*/
+
 #define ROTARY_ANGLE_SENSOR A0
 #define ADC_REF 5      //reference voltage of ADC is 5v.If the Vcc switch on the seeeduino
                        //board switches to 3V3, the ADC_REF should be 3.3
@@ -35,25 +38,24 @@ ConfigCmd configCmdArray[] = {
 
   {.index = INDEX_MODEVIEW, .subIndex = SUBINDEX_MODEVIEW, .count = 1, .dataType = uint8, .data = CONFIG_MODE           },  // entry config mode
 
-  {.index = Idx01_id, .subIndex = obj_type,     .count = 1, .dataType = uint8,  .data = TYPE_ImageProgress  },  // set obj type
-  {.index = Idx01_id, .subIndex = obj_posX,     .count = 2, .dataType = int16,  .data = 140          },  // set obj x
-  {.index = Idx01_id, .subIndex = obj_posY,     .count = 2, .dataType = int16,  .data = 50          },  // set obj y
+  {.index = Idx01_id, .subIndex = obj_type,     .count = 1, .dataType = uint8,  .data = TYPE_GAUGE  },  // set obj type
+  {.index = Idx01_id, .subIndex = obj_posX,     .count = 2, .dataType = int16,  .data = 160          },  // set obj x
+  {.index = Idx01_id, .subIndex = obj_posY,     .count = 2, .dataType = int16,  .data = 40          },  // set obj y
   {.index = Idx01_id, .subIndex = obj_style,    .count = 2, .dataType = uint16, .data = 0           },  // set obj style
   {.index = Idx01_id, .subIndex = obj_setValue, .count = 2, .dataType = uint16, .data = 50          },  // set obj value
 
   {.index = Idx02_id, .subIndex = obj_type,     .count = 1, .dataType = uint8,  .data = TYPE_BUTTON  },  // set obj type
   {.index = Idx02_id, .subIndex = obj_posX,     .count = 2, .dataType = int16,  .data = 20          },  // set obj x
-  {.index = Idx02_id, .subIndex = obj_posY,     .count = 2, .dataType = int16,  .data = 100          },  // set obj y
+  {.index = Idx02_id, .subIndex = obj_posY,     .count = 2, .dataType = int16,  .data = 110          },  // set obj y
   {.index = Idx02_id, .subIndex = obj_style,    .count = 2, .dataType = uint16, .data = 0           },  // set obj style
   {.index = Idx02_id, .subIndex = obj_setValue, .count = 2, .dataType = uint16, .data = 50          },  // set obj value
   
-  {.index = Idx03_id, .subIndex = obj_type,     .count = 1, .dataType = uint8,  .data = TYPE_BUTTON  },  // set obj type empty
-  {.index = Idx03_id, .subIndex = obj_posX,     .count = 2, .dataType = int16,  .data = 250          },  // set obj x
-  {.index = Idx03_id, .subIndex = obj_posY,     .count = 2, .dataType = int16,  .data = 100          },  // set obj y
+  {.index = Idx03_id, .subIndex = obj_type,     .count = 1, .dataType = uint8,  .data = TYPE_Indicator  },  // set obj type empty
+  {.index = Idx03_id, .subIndex = obj_posX,     .count = 2, .dataType = int16,  .data = 380          },  // set obj x
+  {.index = Idx03_id, .subIndex = obj_posY,     .count = 2, .dataType = int16,  .data = 110          },  // set obj y
   {.index = Idx03_id, .subIndex = obj_style,    .count = 2, .dataType = uint16, .data = 0           },  // set obj style
   {.index = Idx03_id, .subIndex = obj_setValue, .count = 2, .dataType = uint16, .data = 50          },  // set obj value 
-
-
+  
   {.index = Idx04_id, .subIndex = obj_type, .count = 1, .dataType = uint8, .data = 0  },  // set obj type empty
   {.index = Idx05_id, .subIndex = obj_type, .count = 1, .dataType = uint8, .data = 0  },  // set obj type empty
   {.index = Idx06_id, .subIndex = obj_type, .count = 1, .dataType = uint8, .data = 0  },  // set obj type empty
@@ -89,7 +91,10 @@ uint32_t last_time_set = TIMEVAL_MAX;
 
 char prbuf[64];
 uint16_t gaugeValue = 0;
+uint16_t IndicatorValue = 0;
+uint16_t buttonValue = 0;
 bool doConfig = 0;
+
 
 
 /**
@@ -131,7 +136,7 @@ TIMEVAL getElapsedTime(void)
 
 void dummyFunction(CO_Data *d)
 {
-
+	//  123
 }
 
 /**/
@@ -167,9 +172,58 @@ UNS32 ObjectFuncallback ( CO_Data* d, const indextable *unsused_indextable, UNS8
 
   uint32_t expectSize;
   uint8_t dataType;
+  
+  uint16_t obj01_getValue;
+  uint16_t obj02_getValue;
+  uint16_t obj03_getValue;
+  uint16_t obj04_getValue;
+  uint16_t obj05_getValue;
+  uint16_t obj06_getValue;
+  uint16_t obj07_getValue;
+  uint16_t obj08_getValue;
+  uint16_t obj09_getValue;
+  uint16_t obj10_getValue;
 
   readLocalDict( &SmartDisplay_Data, Idx01_id, obj_getValue, &gaugeValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx02_id, obj_getValue, &IndicatorValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx03_id, obj_getValue, &buttonValue, &expectSize, &dataType, 0 );
+  // -------------------------------------------------------------------------------------------------------
+  
+  readLocalDict( &SmartDisplay_Data, Idx01_id, obj_getValue, &obj01_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx02_id, obj_getValue, &obj02_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx03_id, obj_getValue, &obj03_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx04_id, obj_getValue, &obj04_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx05_id, obj_getValue, &obj05_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx06_id, obj_getValue, &obj06_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx07_id, obj_getValue, &obj07_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx08_id, obj_getValue, &obj08_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx09_id, obj_getValue, &obj09_getValue, &expectSize, &dataType, 0 );
+  readLocalDict( &SmartDisplay_Data, Idx10_id, obj_getValue, &obj10_getValue, &expectSize, &dataType, 0 );
+  
+  buttonValue = obj02_getValue;
+  // gaugeValue = obj01_getValue;
 
+  sprintf( prbuf, "obj01_getValue %03d", obj01_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj02_getValue %03d", obj02_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj03_getValue %03d", obj03_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj04_getValue %03d", obj04_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj05_getValue %03d", obj05_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj06_getValue %03d", obj06_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj07_getValue %03d", obj07_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj08_getValue %03d", obj08_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj09_getValue %03d", obj09_getValue );
+  Serial.println(prbuf);
+  sprintf( prbuf, "obj10_getValue %03d", obj10_getValue );
+  Serial.println(prbuf);
+  
   return 0;
 }
 
@@ -218,7 +272,14 @@ bool scanSensor(void *)
   
   ConfigCmd cmd;
 
-  cmd.index    = Idx01_id;
+  cmd.index    = Idx01_id; /*Idx01_id is associated with Gauge. It could be verify from .wgb file.*/
+  cmd.subIndex = obj_setValue;
+  cmd.count    = 2;
+  cmd.dataType = uint16;
+  cmd.data = data;
+  res = configCmdQueue.push( &cmd ); /*it allows to add a command to a queue that will be processed later on.*/
+
+  cmd.index    = Idx03_id; /*Idx03_id is associated with Indicator. It could be verify from .wgb file.*/
   cmd.subIndex = obj_setValue;
   cmd.count    = 2;
   cmd.dataType = uint16;
@@ -312,6 +373,7 @@ bool WaitConnect(void)
 void setup() {
 
   pinMode(ROTARY_ANGLE_SENSOR, INPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
 
   Serial.begin(115200);
   while (!SERIAL_PORT_MONITOR) {}
@@ -356,6 +418,26 @@ void setup() {
 }
 
 void loop() {
+
+  if(buttonValue==1) {
+    digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on by making the voltage HIGH
+    // digitalWrite(ROTARY_ANGLE_SENSOR, HIGH);
+  }
+  else if(buttonValue==0){
+
+    digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+  }
+    
+  
+  // buttonValue = digitalWrite(TYPE_BUTTON);
+  // if (LED_BUILTIN == HIGH) {
+  //   // turn LED on:
+  // digitalWrite(LED_BUILTIN, HIGH);
+  // } else {
+  //   // turn LED off:
+  // digitalWrite(LED_BUILTIN, LOW);
+  // }
+
 
   Message msg;
 
