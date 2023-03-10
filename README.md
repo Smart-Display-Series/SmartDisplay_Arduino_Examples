@@ -1,5 +1,8 @@
 SmartDisplay CANbus Arduino Examples
 ==============================================================
+## Development Environment
+
+* Arduino IDE v2.0.4
 
 ## Information
 
