@@ -9,6 +9,7 @@
 
 /*Need to make a layout and do memory mapping with the help of the GUI builder app.*/
 /*A .wgb file has been added to the Arduino library to verify the icon index ID in the Arduino project. so that the correct icon index could be used in coding.*/
+/*Added a video in librery to watch, how to compile, and download the sketch, and how the behavior of the Smart Display.*/
 
 #define ROTARY_ANGLE_SENSOR A0
 #define ADC_REF 5      //reference voltage of ADC is 5v.If the Vcc switch on the seeeduino
