@@ -13,6 +13,7 @@ SmartDisplay CANbus Arduino Examples
 This Examples provide the following help:
 
 * Description example of control gauge
+* New example Demo_With_Gauge_Indicator_Button
 * ***To be added***
 
 
