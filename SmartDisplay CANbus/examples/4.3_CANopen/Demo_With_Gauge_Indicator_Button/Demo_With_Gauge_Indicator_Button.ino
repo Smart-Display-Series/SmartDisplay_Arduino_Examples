@@ -11,7 +11,7 @@
 /*A .wgb file has been added to the Arduino library to verify the icon index ID in the Arduino project. so that the correct icon index could be used in coding.*/
 /*Added a video in librery to watch, how to compile, and download the sketch, and how the behavior of the Smart Display.*/
 
-#define ROTARY_ANGLE_SENSOR A0
+#define BUTTON_VOLTAGE A0
 #define ADC_REF 5      //reference voltage of ADC is 5v.If the Vcc switch on the seeeduino
                        //board switches to 3V3, the ADC_REF should be 3.3
 #define GROVE_VCC 5    //VCC of the grove interface is normally 5v
@@ -260,7 +260,7 @@ bool scanSensor(void *)
   uint8_t res;
   
   float voltage;
-  int sensor_value = analogRead(ROTARY_ANGLE_SENSOR);
+  int sensor_value = analogRead(BUTTON_VOLTAGE);
   voltage = (float)sensor_value*ADC_REF/1023;
   float degrees = (voltage*FULL_ANGLE)/GROVE_VCC;
 
@@ -373,7 +373,7 @@ bool WaitConnect(void)
 
 void setup() {
 
-  pinMode(ROTARY_ANGLE_SENSOR, INPUT);
+  pinMode(BUTTON_VOLTAGE, INPUT);
   pinMode(LED_BUILTIN, OUTPUT);
 
   Serial.begin(115200);
