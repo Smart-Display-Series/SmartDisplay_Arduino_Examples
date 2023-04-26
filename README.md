@@ -7,14 +7,18 @@ SmartDisplay CANbus Arduino Examples
 
 ## Information
 
-This Examples provide the following help:
+These Examples provide the following help:
 
 * Description example of control gauge
 * New example Demo_With_Gauge_Indicator_Button
+* Added new example Changing_Pages_Through_Physical_Button
 * ***To be added***
 
+New example Changing_Pages_Through_Physical_Button is demonstration Arduino mega 2560 through  [Arduino RS485 shield] https://wiki.dfrobot.com/Arduino_RS485_Shield_SKU__DFR0259#target_2 [Smart Display Modules Modbus 3.5"]https://www.winstar.com.tw/products/smart-display.html
+The demo code included with ***[Modbusmaster]*** library was made for the Smart Display.
 
-This example is demonstration Arduino mega 2560 through [Canbus shield](https://www.seeedstudio.com/CAN-BUS-Shield-V2.html) control [Smart Display Modules CANbus 3.5"](https://www.winstar.com.tw/products/smart-display/can-display/wl0f00035000xgaaasc00.html).
+
+Demo_With_Gauge_Indicator_Button example is demonstration Arduino mega 2560 through [Canbus shield](https://www.seeedstudio.com/CAN-BUS-Shield-V2.html) control [Smart Display Modules CANbus 3.5"](https://www.winstar.com.tw/products/smart-display/can-display/wl0f00035000xgaaasc00.html).
 
 This Examples will work with all [Smart Display CANbus Modules](https://www.winstar.com.tw/products/smart-display/can-display.html).
 
