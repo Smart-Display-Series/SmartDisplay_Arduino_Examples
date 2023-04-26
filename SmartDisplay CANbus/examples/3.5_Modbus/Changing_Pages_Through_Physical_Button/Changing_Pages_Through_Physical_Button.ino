@@ -26,6 +26,7 @@ bool lastButtonState = LOW;
 
 unsigned long lastDebounce = 0;
 unsigned long debounceDelay = 60;
+uint8_t nowPage = 0;
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
@@ -52,37 +53,26 @@ void loop() {
   // read physical button voltage
   int buttonValue = analogRead(BUTTON_PIN);
 
-  if( buttonValue > THRESHOLD ) {
-    
-    buttonState = HIGH;
+  if ( buttonValue > THRESHOLD ) {
+
+    nowPage ++;
+    if(nowPage>1)
+      nowPage=0;
+
+    chagePageFunction(nowPage);
+
+    if(nowPage!=0)
+      digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on by making the voltage High
+    else
+      digitalWrite(LED_BUILTIN, LOW);  // turn the LED on by making the voltage High
+
   }
-  else {
-    
-    buttonState = LOW;
+
+  // wait button release 
+  while( buttonValue > THRESHOLD ) {
+
+    buttonValue = analogRead(BUTTON_PIN);
+    delay(100);
   }
-
-  // if ( buttonState != lastButtonState) {
-
-  //   lastDebounce = millis();        // Starting lastDebounce timing
-  // }
- 
-  if ( (millis() - lastDebounce) > debounceDelay) {        // Check if delay has passed
-
-    if (lastButtonState != buttonState) {
-
-      lastButtonState = buttonState;
-      
-      if( buttonState == HIGH ) {
-
-        chagePageFunction(1);
-        digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on by making the voltage High
-      }
-      else {
-        
-        chagePageFunction(0);
-        digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage Low
-      }
-    }
-  } 
 }
-
+  
