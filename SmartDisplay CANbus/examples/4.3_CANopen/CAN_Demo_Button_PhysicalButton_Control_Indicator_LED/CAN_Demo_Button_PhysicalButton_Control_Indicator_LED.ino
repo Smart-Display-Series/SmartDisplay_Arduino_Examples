@@ -9,19 +9,12 @@
 #include "ModelSetting.h"
 
 #define BUTTON_PIN A0
-// #define ADC_REF 5      //reference voltage of ADC is 5v.If the Vcc switch on the seeeduino
-//                        //board switches to 3V3, the ADC_REF should be 3.3
-// #define GROVE_VCC 5    //VCC of the grove interface is normally 5v
-// #define FULL_ANGLE 300 //full value of the rotary angle is 300 degrees
 
 #define NODE_ID    0x01
 #define CLIENT_ID  0x7B
-#define CONFIG_MODE   0
-#define DISPLAY_MODE  1
-// #define MAX_DATA_SIZE 8
 
 #define	IMPLEMENTATION	FIFO
-#define ArrayLength(x)  (sizeof(x) / sizeof(x[0]))
+#define MAX_QUEUE_SIZE 5
 
 typedef enum
 {
@@ -32,16 +25,7 @@ typedef enum
 
 ConnectState_t connectState = IsWaitConnect;
 
-ConfigCmd configCmdArray[] = {
-
-  {.index = INDEX_MODEVIEW, .subIndex = SUBINDEX_MODEVIEW, .count = 1, .dataType = uint8, .data = CONFIG_MODE           },  // entry config mode
-
-  {.index = INDEX_BACKGROUND, .subIndex = SUBINDEX_BACKGROUND, .count = 1, .dataType = uint8, .data = 1  },  // set background img
-  
-  {.index = INDEX_MODEVIEW, .subIndex = SUBINDEX_MODEVIEW, .count = 1, .dataType = uint8, .data = DISPLAY_MODE  }   // entry display mode
-};
-
-#define MAX_QUEUE_SIZE ArrayLength(configCmdArray)
+ConfigCmd configCmdArray[MAX_QUEUE_SIZE];
 
 cppQueue  configCmdQueue(sizeof(ConfigCmd), MAX_QUEUE_SIZE, IMPLEMENTATION); // Instantiate queue
 
@@ -54,8 +38,6 @@ const int CAN_INT_PIN = 2;
 
 mcp2515_can CAN(SPI_CS_PIN); // Set CS pin
 
-void ConfigSmartDisplay(void);
-
 /* Define the timer registers */
 uint32_t TimerAlarm_CAN;
 uint32_t TimerCounter_CAN;
@@ -65,7 +47,6 @@ char prbuf[64];
 uint16_t IndicatorValue = 0;
 uint16_t buttonValue = 0;
 byte physicalButtonState;
-uint16_t previousState = 0;
 bool doConfig = 0;
 
 
@@ -108,7 +89,7 @@ TIMEVAL getElapsedTime(void)
 
 void dummyFunction(CO_Data *d)
 {
-	//  123
+
 }
 
 /**/
@@ -254,24 +235,6 @@ bool ConfigCmdFun(void)
   return true;
 }
 
-void ConfigSmartDisplay( void )
-{
-  uint8_t res;
-  ConfigCmd cmd;
-
-  for( uint8_t i = 0; i < ArrayLength(configCmdArray); i++ ) {
-
-    cmd.index    = configCmdArray[i].index;
-    cmd.subIndex = configCmdArray[i].subIndex;
-    cmd.count    = configCmdArray[i].count;
-    cmd.dataType = configCmdArray[i].dataType;
-    cmd.data     = configCmdArray[i].data;
-    res          = configCmdQueue.push( &cmd );  
-  }
-  
-  ConfigCmdFun();
-}
-
 bool WaitConnect(void)
 {
   if(connectState==IsConnected)
@@ -332,8 +295,7 @@ void setup() {
 
 void loop() {
 
- physicalButtonState = digitalRead(BUTTON_PIN);
-
+  physicalButtonState = digitalRead(BUTTON_PIN);
 
   if ( (physicalButtonState | buttonValue) == HIGH) {
     
@@ -348,10 +310,6 @@ void loop() {
       digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
   }
   
-  // delay(100);
-
-  Message msg;
-
   timer.tick(); // tick the timer
 
   WaitConnect();
@@ -360,6 +318,8 @@ void loop() {
   if (CAN_MSGAVAIL != CAN.checkReceive()) {
     return;
   } 
+  
+  Message msg;
   
   // read data, len: data length, buf: data buf
   CAN.readMsgBuf(&msg.len, msg.data);
@@ -384,10 +344,10 @@ void loop() {
 
 extern "C" void pushCan( Message *msg )
 {
+  /*
   unsigned long t = millis();
   int i, n;
-
-  /*
+  
   n = sprintf( prbuf, "%04lu.%03d TX: [%08lX] ", t / 1000, int(t % 1000), (unsigned long)msg->cob_id );
   
   for (i = 0; i < msg->len; i++) {
