@@ -12,7 +12,12 @@ These Examples provide the following help:
 * Description example of control gauge
 * New example Demo_With_Gauge_Indicator_Button
 * Added new example Changing_Pages_Through_Physical_Button
+* Added new example Changing pages through Touch and Physical button both. Temperature and humidity sensor reading the temperature data.
 * ***To be added***
+
+A new exclusive demo, based on the CAN open interface, has been added as an example which offers a number of features such as page-switching functions via touch and physical buttons. 
+Temperature and humidity sensor reads room temperature data. The touch button controls the indicator. 
+Brightness is being controlled through brightness control slider.
 
 New example Changing_Pages_Through_Physical_Button is demonstration Arduino mega 2560 through  [Arduino RS485 shield] https://wiki.dfrobot.com/Arduino_RS485_Shield_SKU__DFR0259#target_2 [Smart Display Modules Modbus 3.5"]https://www.winstar.com.tw/products/smart-display.html
 The demo code included with ***[Modbusmaster]*** library was made for the Smart Display.
