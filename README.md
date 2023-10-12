@@ -1,4 +1,4 @@
-SmartDisplay CANbus Arduino Examples
+SmartDisplay Arduino Examples
 ==============================================================
 
 ## Development Environment
