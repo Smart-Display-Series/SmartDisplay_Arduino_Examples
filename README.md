@@ -13,8 +13,15 @@ These Examples provide the following help:
 * New example Demo_With_Gauge_Indicator_Button
 * Added new example Changing_Pages_Through_Physical_Button
 * Added new example Changing pages through Touch and Physical button both. Temperature and humidity sensor reading the temperature data.
+* Added a demo, based on the Modbus interface for Page-switching functions and buzzer function.
 * ***To be added***
 
+* ***Release date: October 13th, 2023***
+* A new exclusive demo, based on the Modbus interface, has been added as an example which offers the features such as
+  1. Page-switching functions via touch buttons.
+  2. Multiple buzzer beeping counter with multiple buttons.
+  
+* ***Release date: August 30th, 2023***
 A new exclusive demo, based on the CAN open interface, has been added as an example which offers a number of features such as page-switching functions via touch and physical buttons. 
 Temperature and humidity sensor reads room temperature data. The touch button controls the indicator. 
 Brightness is being controlled through brightness control slider.
