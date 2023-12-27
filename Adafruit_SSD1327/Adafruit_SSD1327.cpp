@@ -149,6 +149,7 @@ Adafruit_SSD1327::~Adafruit_SSD1327(void) {}
 bool Adafruit_SSD1327::begin(uint8_t addr, bool reset) {
 
   if (!Adafruit_GrayOLED::_init(addr, reset)) {
+	// Serial.println("Unable to initialize OLED");
     return false;
   }
 
@@ -196,7 +197,12 @@ bool Adafruit_SSD1327::begin(uint8_t addr, bool reset) {
 
   page_offset = 0;
   if (!oled_commandList(init_128x128, sizeof(init_128x128))) {
+	  
+    //  Serial.print("sizeof: ");
+    //  Serial.println(sizeof(init_128x128));
+	  
     return false;
+	
   }
 
   delay(100);                      // 100ms delay recommended
@@ -204,7 +210,7 @@ bool Adafruit_SSD1327::begin(uint8_t addr, bool reset) {
   setContrast(0x2F);
 
   // memset(buffer, 0x81, _bpp * WIDTH * ((HEIGHT + 7) / 8));
-
+  Serial.println("OLED Display ON");
   return true; // Success
 }
 
